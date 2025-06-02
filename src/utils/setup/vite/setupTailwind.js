@@ -21,6 +21,6 @@ export const setupTailwind = (projectPath) => {
 
   fs.writeFileSync(indexCssPath, content, "utf-8");
   console.log(
-    `✅ Replaced content of src/index.css with '@import("tailwindcss");'`
+    `✅ Replaced content of src/index.css with '@import("tailwindcss"\n);'`
   );
 };

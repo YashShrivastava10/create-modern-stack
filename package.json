@@ -25,6 +25,7 @@
   "author": "Yash Shrivastava",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^5.4.1",
     "fs-extra": "^11.3.0",
     "jsonc-parser": "^3.3.1",
     "prompts": "^2.4.2"

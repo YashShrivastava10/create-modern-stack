@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import fs from "fs";
 import path from "path";
 
@@ -16,7 +17,17 @@ export const setProjectname = (projectNameFromInput) => {
   if (!isCurrentDir) {
     fs.mkdirSync(projectPath, { recursive: true });
   }
-  console.log(`🛠️ Setting up project in: ${projectPath}`);
 
-  return { projectNameInput, projectPath, isCurrentDir };
+  console.log(
+    chalk.gray("\n[info]"),
+    "Initializing project at",
+    chalk.blue.bold(projectPath),
+    "\n"
+  );
+
+  return {
+    projectNameInput,
+    projectPath,
+    isCurrentDir,
+  };
 };

@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -24,7 +25,11 @@ const copyCssFile = (framework, colorPalette, projectPath) => {
 
   fs.writeFileSync(destPath, finalCss, "utf-8");
 
-  console.log(`🎨 Applied ${colorPalette} color theme to ${framework}`);
+  console.log(
+    `${chalk.gray("[info]")} Applied color theme '${chalk.cyan(
+      colorPalette
+    )}' to ${chalk.bold(framework)} project → ${chalk.dim(destPath)}\n`
+  );
 };
 
 export { copyCssFile };

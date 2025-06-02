@@ -35,8 +35,6 @@ export const validateProjectName = (input) => {
       .readdirSync(conflictPath)
       .filter((item) => !IGNORED_FILES.includes(item));
 
-    console.log(contents);
-
     if (conflictingDir === trimmed) {
       if (contents.length > 0) {
         return {
