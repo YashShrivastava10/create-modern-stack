@@ -144,7 +144,7 @@ Based on your selections during the CLI interaction, your new project will come 
 
 - **Development Tooling:**
 
-- ESLint and Prettier configured for consistent code quality and formatting.
+  - ESLint and Prettier configured for consistent code quality and formatting.
 
 <!--- **Production-Ready Builds:**
 
