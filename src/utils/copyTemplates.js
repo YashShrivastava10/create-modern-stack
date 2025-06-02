@@ -1,4 +1,3 @@
-import chalk from "chalk";
 import fsExtra from "fs-extra";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -19,11 +18,6 @@ const copyTemplates = (framework, stateManagement, projectPath, routing) => {
 
   // Clean up existing src
   if (fsExtra.existsSync(destinationSrc)) {
-    console.log(
-      `${chalk.gray("[clean]")} Removing existing directory → ${chalk.dim(
-        destinationSrc
-      )}`
-    );
     fsExtra.removeSync(destinationSrc);
   }
 
@@ -111,12 +105,6 @@ const copyTemplates = (framework, stateManagement, projectPath, routing) => {
       );
       break;
   }
-
-  console.log(
-    `${chalk.green("[success]")} Project initialized with ${chalk.cyan(
-      stateManagement
-    )} state and ${chalk.cyan(routing)} routing for ${chalk.bold(framework)}.\n`
-  );
 };
 
 export { copyTemplates };

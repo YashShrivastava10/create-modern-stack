@@ -1,6 +1,5 @@
 import fs from "fs";
 import { parse, printParseErrorCode } from "jsonc-parser";
-import path from "path";
 
 /**
  * Merges baseUrl and paths into a tsconfig file (handles JSON with comments).
@@ -36,5 +35,4 @@ export const updateTsConfig = (filePath) => {
 
   const updatedContent = JSON.stringify(config, null, 2);
   fs.writeFileSync(filePath, updatedContent);
-  console.log(`✅ Updated ${path.basename(filePath)} with alias paths.`);
 };

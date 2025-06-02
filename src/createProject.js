@@ -1,14 +1,16 @@
-import chalk from "chalk";
+import * as clack from "@clack/prompts";
 import { execSync } from "child_process";
 import fs from "fs";
+import colors from "picocolors";
 import { copyCssFile } from "./utils/copyCssFile.js";
 import { copyTemplates } from "./utils/copyTemplates.js";
 import { setProjectname } from "./utils/setProjectName.js";
 import { setupBaseApp } from "./utils/setup/setupBaseApp.js";
+import { setupPrettier } from "./utils/setup/setupPrettier.js";
 import { setupShadcn } from "./utils/setup/setupShadcn.js";
 import { setupStateManagement } from "./utils/setup/setupStateManagement.js";
 
-const createProject = (answers) => {
+const createProject = async (answers) => {
   const {
     projectName: projectNameFromInput,
     framework,
@@ -20,130 +22,119 @@ const createProject = (answers) => {
   const { projectNameInput, projectPath, isCurrentDir } =
     setProjectname(projectNameFromInput);
 
-  console.log(
-    chalk.bold.cyanBright(
-      `\n🚀 Initializing new ${framework} project: ${chalk.yellow(
+  clack.log.step(
+    colors.cyan(
+      `🚀 Initializing new ${framework} project: ${colors.yellow(
         projectNameInput
       )}`
     )
   );
-  console.log(chalk.dim("--------------------------------------------------"));
+
+  const s = clack.spinner(); // Create a single spinner instance
 
   try {
     // Step 1: Base Application Setup
-    console.log(
-      chalk.blueBright("\n[1/6] 📁 Setting up base application structure...")
-    );
-    setupBaseApp(framework, projectNameInput, projectPath, routing);
-    console.log(
-      chalk.green("✅ Base application structure created successfully.")
-    );
+    s.start("📁 Setting up base application structure...");
+    // Assume setupBaseApp might throw on error
+    await setupBaseApp(framework, projectNameInput, projectPath, routing); // Make async if it is
+    s.stop("✅ Base application structure created successfully.");
 
     // Step 2: Install additional dependencies
-    // Renamed 'extras' to 'additionalDependencies' for clarity
     const additionalDependencies = [
       "tailwind-merge",
       "autoprefixer",
       "class-variance-authority",
-      "motion", // Consider if this is always needed or conditional
+      "clsx",
+      "motion",
     ];
 
-    console.log(
-      chalk.blueBright(
-        "\n[2/6] 📦 Installing core utilities & UI dependencies..."
-      )
-    );
-    process.chdir(projectPath); // Ensure we are in the project directory
+    s.start("📦 Installing core utilities & UI dependencies...");
+    process.chdir(projectPath);
     execSync(`npm install ${additionalDependencies.join(" ")}`, {
-      stdio: "inherit",
+      stdio: "pipe", // Capture output if you don't want it flooding the console
     });
-    console.log(chalk.green("✅ Core utilities & UI dependencies installed."));
+    s.stop("✅ Core utilities & UI dependencies installed.");
 
     // Step 3: Setup Shadcn/ui
-    console.log(
-      chalk.blueBright("\n[3/6] 🎨 Configuring shadcn/ui components...")
-    );
-    setupShadcn(); // Assuming this logs its own progress if complex
-    console.log(chalk.green("✅ shadcn/ui configured."));
+    s.start("🎨 Configuring shadcn/ui components...");
+    await setupShadcn(); // Pass projectPath and answers if needed
+    s.stop("✅ shadcn/ui configured.");
 
     // Step 4: Setup State Management
-    console.log(
-      chalk.blueBright(
-        `\n[4/6] 🧠 Integrating state management (${chalk.yellow(
-          stateManagement || "None"
-        )})...`
-      )
+    s.start(
+      `🧠 Integrating state management (${colors.yellow(
+        stateManagement || "None"
+      )})...`
     );
-    setupStateManagement(stateManagement);
-    console.log(chalk.green("✅ State management integrated."));
+    await setupStateManagement(stateManagement, projectPath, framework); // Pass projectPath and framework
+    s.stop("✅ State management integrated.");
 
     // Step 5: Copy Templates
-    console.log(
-      chalk.blueBright("\n[5/6] 📄 Copying project-specific templates...")
-    );
-    copyTemplates(framework, stateManagement, projectPath, routing);
-    console.log(chalk.green("✅ Project-specific templates copied."));
+    s.start("📄 Copying project-specific templates...");
+    await copyTemplates(framework, stateManagement, projectPath, routing);
+    s.stop("✅ Project-specific templates copied.");
+
+    setupPrettier(projectPath);
 
     // Step 6: Apply CSS Theme
-    console.log(
-      chalk.blueBright(
-        `\n[6/6] 🎨 Applying '${chalk.yellow(colorPalette)}' color theme...`
-      )
-    );
-    copyCssFile(framework, colorPalette, projectPath);
-    console.log(chalk.green("✅ Color theme applied."));
+    s.start(`🎨 Applying '${colors.yellow(colorPalette)}' color theme...`);
+    await copyCssFile(framework, colorPalette, projectPath);
+    s.stop("✅ Color theme applied.");
 
-    console.log(
-      chalk.dim("--------------------------------------------------")
-    );
-    console.log(
-      chalk.bold.greenBright(
-        "\n🎉 Project setup complete! Your modern stack is ready."
+    clack.outro(
+      colors.bgGreen(
+        colors.black(" 🎉 Project setup complete! Your modern stack is ready. ")
       )
     );
-    console.log(chalk.whiteBright("\nNext steps:"));
+
+    const nextSteps = ["Next steps:"];
     if (!isCurrentDir) {
-      console.log(chalk.cyan(`  cd ${projectNameInput}`));
+      nextSteps.push(`  cd ${projectNameInput}`);
     }
-    console.log(chalk.cyan("  npm run dev"));
-    console.log(chalk.yellow("\nHappy coding! ✨"));
+    nextSteps.push(
+      "  npm install (if you haven't already or if using pnpm/yarn)"
+    ); // Good reminder
+    nextSteps.push("  npm run dev");
+    nextSteps.push("\nHappy coding! ✨");
+
+    clack.note(nextSteps.map((line) => colors.cyan(line)).join("\n"));
   } catch (error) {
-    // Changed 'e' to 'error' for convention
-    console.error(chalk.red.bold("\n❌ Critical Error: Project setup failed."));
-    console.error(
-      chalk.red("--------------------------------------------------")
-    );
-    console.error(chalk.red("An error occurred during the setup process:"));
-    console.error(error); // Log the full error object for debugging
-    console.error(
-      chalk.red("--------------------------------------------------")
-    );
+    s.stop("❌ Operation failed."); // Stop spinner if it was active during an error
+    clack.log.error(colors.red("❌ Critical Error: Project setup failed."));
+    clack.log.error(colors.red(error.message || "An unknown error occurred."));
+    if (error.stderr) {
+      // If error came from execSync with stdio: 'pipe'
+      clack.log.info(colors.gray(`Stderr: ${error.stderr.toString()}`));
+    }
+    if (error.stdout) {
+      // If error came from execSync with stdio: 'pipe'
+      clack.log.info(colors.gray(`Stdout: ${error.stdout.toString()}`));
+    }
+    // console.error(error); // For full stack trace during development
 
     if (!isCurrentDir && fs.existsSync(projectPath)) {
-      // Check if path exists before attempting removal
-      console.log(
-        chalk.yellowBright(
+      clack.log.warn(
+        colors.yellow(
           "\n🧹 An error occurred. Attempting to clean up created directory..."
         )
       );
+      const sCleanup = clack.spinner();
+      sCleanup.start(`Removing directory ${projectPath}...`);
       try {
         fs.rmSync(projectPath, { recursive: true, force: true });
-        console.log(
-          chalk.green(`✅ Successfully removed directory: ${projectPath}`)
+        sCleanup.stop(
+          colors.green(`✅ Successfully removed directory: ${projectPath}`)
         );
       } catch (cleanupError) {
-        console.error(
-          chalk.red(`❌ Failed to remove directory: ${projectPath}`)
+        sCleanup.stop(
+          colors.red(`❌ Failed to remove directory: ${projectPath}`)
         );
-        console.error(cleanupError);
-        console.log(chalk.yellow("You may need to remove it manually."));
+        clack.log.error(colors.red(cleanupError.message));
+        clack.log.info(colors.yellow("You may need to remove it manually."));
       }
     }
-    console.log(
-      chalk.yellow(
-        "\nPlease review the error messages above to diagnose the issue."
-      )
-    );
+    clack.outro(colors.inverse(colors.red(" Setup aborted due to error. ")));
+    process.exit(1); // Ensure non-zero exit code on failure
   }
 };
 

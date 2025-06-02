@@ -1,6 +1,7 @@
-import chalk from "chalk";
+import * as clack from "@clack/prompts";
 import fs from "fs";
 import path from "path";
+import colors from "picocolors";
 
 export const setProjectname = (projectNameFromInput) => {
   const projectNameInput = projectNameFromInput.trim();
@@ -18,11 +19,10 @@ export const setProjectname = (projectNameFromInput) => {
     fs.mkdirSync(projectPath, { recursive: true });
   }
 
-  console.log(
-    chalk.gray("\n[info]"),
-    "Initializing project at",
-    chalk.blue.bold(projectPath),
-    "\n"
+  clack.log.step(
+    `${colors.gray("[info]")} Initializing project at ${colors.blue(
+      colors.bold(projectPath)
+    )}`
   );
 
   return {
