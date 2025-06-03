@@ -1,6 +1,6 @@
 {
   "name": "create-modern-stack",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A starter kit with inbuilt header, footer, body, responsive, dark/light mode along with state management",
   "main": "src/index.js",
   "bin": {
