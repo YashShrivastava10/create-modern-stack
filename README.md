@@ -1,7 +1,11 @@
-# create-modern-stack
+<div align="center">
+
+<h1>create-modern-stack</h1>
 
 [![npm version](https://badge.fury.io/js/create-modern-stack.svg)](https://badge.fury.io/js/create-modern-stack)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+</div>
 
 ---
 
@@ -85,7 +89,7 @@ The CLI will guide you through a series of questions to customize your project s
 
 </td>
 <td>
- <img src="assets/cli.png" alt="CLI Screenshot Placeholder"/>
+ <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/cli.png" alt="CLI Screenshot Placeholder"/>
 </td>
 </tr>
 </table>
@@ -159,11 +163,11 @@ Based on your selections during the CLI interaction, your new project will come 
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="assets/blue-desktop.png" alt="Blue Theme Desktop Preview" width="90%">
+      <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/blue-desktop.png" alt="Blue Theme Desktop Preview" width="90%">
       <br><em>Blue Theme</em>
     </td>
     <td align="center" width="50%">
-      <img src="assets/default-desktop.png" alt="Default Theme Desktop Preview" width="90%">
+      <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/default-desktop.png" alt="Default Theme Desktop Preview" width="90%">
       <!-- Assuming "desktop-desktop.png" is the default theme. Adjust alt text if needed -->
       <br><em>Default Theme</em>
     </td>
@@ -171,11 +175,11 @@ Based on your selections during the CLI interaction, your new project will come 
   </tr>
   <tr>
     <td align="center" width="50%">
-      <img src="assets/purple-desktop.png" alt="Purple Theme Desktop Preview" width="90%">
+      <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/purple-desktop.png" alt="Purple Theme Desktop Preview" width="90%">
       <br><em>Purple Theme</em>
     </td>
       <td align="center" width="50%">
-      <img src="assets/red-desktop.png" alt="Red Theme Desktop Preview" width="90%">
+      <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/red-desktop.png" alt="Red Theme Desktop Preview" width="90%">
       <br><em>Red Theme</em>
     </td>
   </tr>
@@ -186,11 +190,11 @@ Based on your selections during the CLI interaction, your new project will come 
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="assets/purple-mobile-close.png" alt="Purple Theme Mobile Preview - Menu Closed" width="70%">
+      <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/purple-mobile-close.png" alt="Purple Theme Mobile Preview - Menu Closed" width="70%">
       <br><em>Mobile - Menu Closed</em>
     </td>
     <td align="center" width="50%">
-      <img src="assets/purple-mobile-open.png" alt="Purple Theme Mobile Preview - Menu Open" width="70%">
+      <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/purple-mobile-open.png" alt="Purple Theme Mobile Preview - Menu Open" width="70%">
       <br><em>Mobile - Menu Open</em>
     </td>
   </tr>
@@ -206,11 +210,10 @@ create-modern-stack, react, nextjs, next.js, react.js, tailwind, tailwindcss, sh
 
 ---
 
-## About Author:
+## Author
 
-Yash Shrivastava - Web Developer \
-https://github.com/YashShrivastava10 \
-Website: https://portfolio-yash-shrivastava.vercel.app
+**Yash Shrivastava**  
+[GitHub](https://github.com/YashShrivastava10) • [Website](portfolio-yash-shrivastava.vercel.app) • [LinkedIn](https://www.linkedin.com/in/yash-shrivastava-7980911bb/)
 
 ---
 
