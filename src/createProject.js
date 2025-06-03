@@ -1,14 +1,32 @@
 import * as clack from "@clack/prompts";
-import { execSync } from "child_process";
 import fs from "fs";
 import colors from "picocolors";
+import { capitalizeFirstLetter } from "./utils/captilaizeFirstLetter.js";
 import { copyCssFile } from "./utils/copyCssFile.js";
 import { copyTemplates } from "./utils/copyTemplates.js";
+import { execPromise } from "./utils/execPromise.js";
 import { setProjectname } from "./utils/setProjectName.js";
 import { setupBaseApp } from "./utils/setup/setupBaseApp.js";
 import { setupPrettier } from "./utils/setup/setupPrettier.js";
 import { setupShadcn } from "./utils/setup/setupShadcn.js";
 import { setupStateManagement } from "./utils/setup/setupStateManagement.js";
+import { copyViteConfig } from "./utils/setup/vite/copyViteConfig.js";
+import { setupPathResolver } from "./utils/setup/vite/setupPathResolver.js";
+import { setupRoute } from "./utils/setup/vite/setupRoute.js";
+
+const getPaletteColorFunction = (palette) => {
+  switch (palette.toLowerCase()) {
+    case "purple":
+      return colors.magenta;
+    case "blue":
+      return colors.blue;
+    case "red":
+      return colors.red;
+    case "default":
+    default:
+      return colors.gray;
+  }
+};
 
 const createProject = async (answers) => {
   const {
@@ -19,27 +37,59 @@ const createProject = async (answers) => {
     colorPalette,
   } = answers;
 
-  const { projectNameInput, projectPath, isCurrentDir } =
-    setProjectname(projectNameFromInput);
-
-  clack.log.step(
-    colors.cyan(
-      `🚀 Initializing new ${framework} project: ${colors.yellow(
-        projectNameInput
-      )}`
-    )
+  const s = clack.spinner();
+  // Step 1: Create folder
+  const { projectNameInput, projectPath, isCurrentDir } = await setProjectname(
+    projectNameFromInput,
+    s
   );
 
-  const s = clack.spinner(); // Create a single spinner instance
-
   try {
-    // Step 1: Base Application Setup
-    s.start("📁 Setting up base application structure...");
-    // Assume setupBaseApp might throw on error
-    await setupBaseApp(framework, projectNameInput, projectPath, routing); // Make async if it is
-    s.stop("✅ Base application structure created successfully.");
+    // Step 2: Base Application Setup
+    s.start(`Installing ${colors.cyan(capitalizeFirstLetter(framework))}...`);
+    await setupBaseApp(framework, projectNameInput, projectPath, routing);
+    s.stop(
+      colors.green(`${capitalizeFirstLetter(framework)} sucessfully installed`)
+    );
 
-    // Step 2: Install additional dependencies
+    // Step 3: Routing Lib (React)
+    if (framework === "react") {
+      s.start(`Installing ${colors.cyan(capitalizeFirstLetter(routing))}...`);
+      await setupRoute(routing);
+      s.stop(
+        colors.green(`${capitalizeFirstLetter(routing)} sucessfully installed`)
+      );
+    }
+
+    process.chdir(projectPath);
+
+    // Step 4: State Management
+    if (stateManagement !== "context") {
+      s.start(
+        `Installing ${colors.cyan(capitalizeFirstLetter(stateManagement))}...`
+      );
+      await setupStateManagement(stateManagement, projectPath, framework);
+      s.stop(
+        colors.green(
+          `${capitalizeFirstLetter(stateManagement)} sucessfully installed`
+        )
+      );
+    } else {
+      s.start(colors.cyan("Context is already present"));
+      s.stop(colors.green("Context is already present"));
+    }
+
+    // Step 5: Setup Congifs file
+    s.start(colors.cyan("Generating config files..."));
+    if (framework === "react") {
+      await copyViteConfig(routing, projectPath);
+      await setupPathResolver(projectPath);
+    }
+    await setupPrettier(projectPath);
+    s.stop(colors.green("Config file generated."));
+
+    // Step 6: ShadCn, Motion
+    s.start(colors.cyan("Installing core utilities & UI dependencies..."));
     const additionalDependencies = [
       "tailwind-merge",
       "autoprefixer",
@@ -48,42 +98,31 @@ const createProject = async (answers) => {
       "motion",
     ];
 
-    s.start("📦 Installing core utilities & UI dependencies...");
-    process.chdir(projectPath);
-    execSync(`npm install ${additionalDependencies.join(" ")}`, {
-      stdio: "pipe", // Capture output if you don't want it flooding the console
+    await execPromise(`npm install ${additionalDependencies.join(" ")}`, {
+      stdio: "pipe",
     });
-    s.stop("✅ Core utilities & UI dependencies installed.");
+    await setupShadcn();
+    s.stop(colors.green("Core utilities & UI dependencies installed."));
 
-    // Step 3: Setup Shadcn/ui
-    s.start("🎨 Configuring shadcn/ui components...");
-    await setupShadcn(); // Pass projectPath and answers if needed
-    s.stop("✅ shadcn/ui configured.");
-
-    // Step 4: Setup State Management
-    s.start(
-      `🧠 Integrating state management (${colors.yellow(
-        stateManagement || "None"
-      )})...`
-    );
-    await setupStateManagement(stateManagement, projectPath, framework); // Pass projectPath and framework
-    s.stop("✅ State management integrated.");
-
-    // Step 5: Copy Templates
-    s.start("📄 Copying project-specific templates...");
+    // Step 7: Copy Templates
+    s.start(colors.cyan("Generating project-specific templates..."));
     await copyTemplates(framework, stateManagement, projectPath, routing);
-    s.stop("✅ Project-specific templates copied.");
+    s.stop(colors.green("Project-specific templates generated."));
 
-    setupPrettier(projectPath);
+    // Step 8: Apply CSS Theme
+    const paletteDisplayColor = getPaletteColorFunction(colorPalette);
+    const capitalizedPalette = capitalizeFirstLetter(colorPalette);
 
-    // Step 6: Apply CSS Theme
-    s.start(`🎨 Applying '${colors.yellow(colorPalette)}' color theme...`);
+    s.start(
+      `Applying '${paletteDisplayColor(capitalizedPalette)}' color theme...`
+    );
     await copyCssFile(framework, colorPalette, projectPath);
-    s.stop("✅ Color theme applied.");
+    s.stop(`${paletteDisplayColor(capitalizedPalette)} color theme applied.`);
 
+    // Outro
     clack.outro(
       colors.bgGreen(
-        colors.black(" 🎉 Project setup complete! Your modern stack is ready. ")
+        colors.black("Project setup complete! Your modern stack is ready. ")
       )
     );
 
@@ -91,26 +130,20 @@ const createProject = async (answers) => {
     if (!isCurrentDir) {
       nextSteps.push(`  cd ${projectNameInput}`);
     }
-    nextSteps.push(
-      "  npm install (if you haven't already or if using pnpm/yarn)"
-    ); // Good reminder
     nextSteps.push("  npm run dev");
-    nextSteps.push("\nHappy coding! ✨");
 
     clack.note(nextSteps.map((line) => colors.cyan(line)).join("\n"));
   } catch (error) {
-    s.stop("❌ Operation failed."); // Stop spinner if it was active during an error
+    console.log(error);
+    s.stop("❌ Operation failed.");
     clack.log.error(colors.red("❌ Critical Error: Project setup failed."));
     clack.log.error(colors.red(error.message || "An unknown error occurred."));
     if (error.stderr) {
-      // If error came from execSync with stdio: 'pipe'
       clack.log.info(colors.gray(`Stderr: ${error.stderr.toString()}`));
     }
     if (error.stdout) {
-      // If error came from execSync with stdio: 'pipe'
       clack.log.info(colors.gray(`Stdout: ${error.stdout.toString()}`));
     }
-    // console.error(error); // For full stack trace during development
 
     if (!isCurrentDir && fs.existsSync(projectPath)) {
       clack.log.warn(
@@ -134,7 +167,7 @@ const createProject = async (answers) => {
       }
     }
     clack.outro(colors.inverse(colors.red(" Setup aborted due to error. ")));
-    process.exit(1); // Ensure non-zero exit code on failure
+    process.exit(1);
   }
 };
 

@@ -1,13 +1,13 @@
-import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
+import { execPromise } from "../../execPromise.js";
 
-export const setupTailwind = (projectPath) => {
-  execSync("npm i -D tailwindcss", {
-    stdio: "inherit",
+export const setupTailwind = async (projectPath) => {
+  await execPromise("npm i -D tailwindcss", {
+    stdio: "pipe",
   });
-  execSync("npm i @tailwindcss/vite", {
-    stdio: "inherit",
+  await execPromise("npm i @tailwindcss/vite", {
+    stdio: "pipe",
   });
 
   const indexCssPath = path.join(projectPath, "src", "index.css");

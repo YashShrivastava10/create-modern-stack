@@ -196,11 +196,7 @@ export const getCancelMessage = (value) => {
         process.exit(1);
       }
     }
-
-    const s = clack.spinner();
-    s.start("Creating project...");
     await createProject(userChoice);
-    s.stop("Project created successfully!");
 
     clack.outro(colors.green("All done! Happy coding! 🎉"));
   } catch (err) {

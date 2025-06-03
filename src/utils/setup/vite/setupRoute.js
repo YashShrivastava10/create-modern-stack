@@ -1,10 +1,12 @@
-import { execSync } from "child_process";
+import { execPromise } from "../../execPromise.js";
 
-export const setupRoute = (routing) => {
+export const setupRoute = async (routing) => {
   if (routing === "tanstack-router") {
-    execSync("npm install @tanstack/react-router", { stdio: "inherit" });
-    execSync("npm install -D @tanstack/router-plugin", { stdio: "inherit" });
+    await execPromise("npm install @tanstack/react-router", { stdio: "pipe" });
+    await execPromise("npm install -D @tanstack/router-plugin", {
+      stdio: "pipe",
+    });
   } else if (routing === "react-router") {
-    execSync("npm install react-router", { stdio: "inherit" });
+    await execPromise("npm install react-router", { stdio: "pipe" });
   }
 };

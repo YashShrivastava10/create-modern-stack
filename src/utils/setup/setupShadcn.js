@@ -1,8 +1,8 @@
-import { execSync } from "child_process";
+import { execPromise } from "../execPromise.js";
 
-export const setupShadcn = () => {
-  execSync("npx shadcn@latest init --base-color neutral --force --yes", {
-    stdio: "inherit",
+export const setupShadcn = async () => {
+  await execPromise("npx shadcn@latest init --base-color neutral -s", {
+    stdio: "pipe",
   });
 
   const components = [
@@ -17,7 +17,7 @@ export const setupShadcn = () => {
     "sonner",
     "tabs",
   ];
-  execSync(`npx shadcn@latest add ${components.join(" ")} --yes`, {
-    stdio: "inherit",
+  await execPromise(`npx shadcn@latest add ${components.join(" ")} -s -y`, {
+    stdio: "pipe",
   });
 };

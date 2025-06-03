@@ -1,10 +1,10 @@
-import { execSync } from "child_process";
 import path from "path";
+import { execPromise } from "../../execPromise.js";
 import { updateTsConfig } from "./updateTSConfig.js";
 
-export const setupPathResolver = (projectPath) => {
-  execSync("npm i -D @types/node", {
-    stdio: "inherit",
+export const setupPathResolver = async (projectPath) => {
+  await execPromise("npm i -D @types/node", {
+    stdio: "pipe",
   });
 
   updateTsConfig(path.join(projectPath, "tsconfig.json"));

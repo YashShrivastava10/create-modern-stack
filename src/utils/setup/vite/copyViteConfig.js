@@ -5,9 +5,11 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export const copyViteConfig = (routing, projectPath) => {
+export const copyViteConfig = async (routing, projectPath) => {
   const configSrc = path.join(
     __dirname,
+    "..",
+    "..",
     "..",
     "templates",
     "react",
