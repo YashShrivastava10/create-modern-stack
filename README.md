@@ -133,17 +133,15 @@ Based on your selections during the CLI interaction, your new project will come 
 
   - Your chosen **Color Palette** (Default, Purple, Blue, Red) applied across Shadcn/ui components and Tailwind configuration.
 
-- **Performance Optimizations:**
-
-  - **Lazy Loading / Code Splitting:** Implemented by default (especially with Next.js and Vite for React) to ensure optimal initial load times.
-
 - **Development Tooling:**
 
   - ESLint and Prettier configured for consistent code quality and formatting.
 
-<!-- **Production-Ready Builds:**
+- **Dynamic SEO:**
 
-  - Optimized build configurations for deploying your application. -->
+  - **Dynamic Metadata:** Each page can set its own title and description for improved search engine indexing.
+
+  - **Lazy Loading / Code Splitting:** Components and routes are lazy-loaded to improve performance and help search engines prioritize important content.
 
 <br/>
 
@@ -192,8 +190,6 @@ Based on your selections during the CLI interaction, your new project will come 
     </td>
   </tr>
 </table>
-
-(Screenshots will be added once the visual aspects are finalized)
 
 <br/>
 
