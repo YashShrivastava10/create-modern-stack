@@ -141,9 +141,9 @@ Based on your selections during the CLI interaction, your new project will come 
 
   - ESLint and Prettier configured for consistent code quality and formatting.
 
-< **Production-Ready Builds:**
+<!-- **Production-Ready Builds:**
 
-- Optimized build configurations for deploying your application. -->
+  - Optimized build configurations for deploying your application. -->
 
 <br/>
 
@@ -207,5 +207,7 @@ create-modern-stack, react, nextjs, next.js, react.js, tailwind, tailwindcss, sh
 
 **Yash Shrivastava**  
 [GitHub](https://github.com/YashShrivastava10) • [Website](portfolio-yash-shrivastava.vercel.app) • [LinkedIn](https://www.linkedin.com/in/yash-shrivastava-7980911bb/)
+
+<br />
 
 Happy Coding!
