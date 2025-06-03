@@ -7,15 +7,13 @@
 
 </div>
 
----
-
 ## Overview
 
 `create-modern-stack` is a Command Line Interface (CLI) tool meticulously designed to bootstrap modern frontend applications in seconds. It addresses the common, yet time-consuming, initial setup phase of any new project, which often involves configuring routing, state management, UI libraries like Tailwind CSS and Shadcn/ui, and implementing essential features like dark/light mode.
 
 Why spend 2-3 days on boilerplate when you can have a production-ready foundation in under a minute? This package automates the setup of your chosen framework (React.js or Next.js), complete with a responsive layout (Header, Footer, Body), theme toggling, and other modern development essentials, allowing you to jump straight into building unique features.
 
----
+<br/>
 
 ## Commands to execute
 
@@ -33,66 +31,61 @@ npx create-modern-stack my-app
 
 Replace my-app with your desired project name.
 
----
+<br/>
 
 ## CLI Interaction
 
 The CLI will guide you through a series of questions to customize your project setup. Here's an overview of the prompts:
 
-<table>
-<tr>
-<th>Questions Overview</th>
-<th>CLI in Action</th>
-</tr>
-<tr>
-<td style="max-width: 400px; font-size: 12px; white-space: pre-wrap; word-wrap: break-word;">
-<pre>
-[
-    {
-        type: "text",
-        message: "Project name (use '.' to use current directory)",
-        default: "my-app",
-    },
-    {
-        type: "select",
-        message: "Which framework do you want to use?",
-        choices: ["React.js", "Next.js"],
-        default: "React.js",
-    },
-    {
-        type: "select",
-        message: "Pick a routing library (only applies to React):",
-        choices: ["TanStack Router", "React Router"],
-        default: "TanStack Router",
-    },
-    {
-        type: "select",
-        message: "Select a state management library:",
-        choices: ["Zustand", "Redux", "Context/None"],
-        default: "Zustand",
-    },
-    {
-        type: "select",
-        message: "Choose a color theme:",
-        choices: ["Default", "Purple", "Blue", "Red"],
-        default: "Default",
-    },
-    {
-        type: "toggle",
-        message: "Are you happy with your choices and ready to proceed?",
-        choices: ["yes", "no"],
-        default: true,
-    },
-]
-</pre>
-</td>
-<td style="width: 400px; text-align: center;">
-  <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/cli.png" alt="CLI Screenshot Placeholder" style="width: 100%; max-width: 400px;"/>
-</td>
-</tr>
-</table>
+<div style="display: flex; gap: 20px; align-items: flex-start;">
 
----
+  <pre style="flex: 1; font-size: 12px; overflow-x: auto; max-width: 400px; white-space: pre-wrap; word-wrap: break-word;">
+[
+  {
+    type: "text",
+    message: "Project name (use '.' to use current directory)",
+    default: "my-app",
+  },
+  {
+    type: "select",
+    message: "Which framework do you want to use?",
+    choices: ["React.js", "Next.js"],
+    default: "React.js",
+  },
+  {
+    type: "select",
+    message: "Pick a routing library (only applies to React):",
+    choices: ["TanStack Router", "React Router"],
+    default: "TanStack Router",
+  },
+  {
+    type: "select",
+    message: "Select a state management library:",
+    choices: ["Zustand", "Redux", "Context/None"],
+    default: "Zustand",
+  },
+  {
+    type: "select",
+    message: "Choose a color theme:",
+    choices: ["Default", "Purple", "Blue", "Red"],
+    default: "Default",
+  },
+  {
+    type: "toggle",
+    message: "Are you happy with your choices and ready to proceed?",
+    choices: ["yes", "no"],
+    default: true,
+  },
+]
+  </pre>
+
+  <div style="flex: 1; text-align: center;">
+    <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/cli.png" alt="CLI Screenshot Placeholder" style="max-width: 100%; height: auto;">
+  </div>
+
+</div>
+
+<br/>
 
 ## Features
 
@@ -122,7 +115,7 @@ Based on your selections during the CLI interaction, your new project will come 
 
   - Tailwind CSS is fully set up and configured, ready for utility-first styling.
 
-  - **Beautiful UI Components with Shadcn/ui:**
+- **Beautiful UI Components with Shadcn/ui:**
 
   - Shadcn/ui is initialized, allowing you to easily add and customize accessible and well-designed components.
 
@@ -148,11 +141,11 @@ Based on your selections during the CLI interaction, your new project will come 
 
   - ESLint and Prettier configured for consistent code quality and formatting.
 
-<!--- **Production-Ready Builds:**
+< **Production-Ready Builds:**
 
-  - Optimized build configurations for deploying your application. -->
+- Optimized build configurations for deploying your application. -->
 
----
+<br/>
 
 ## Screenshots:
 
@@ -202,19 +195,17 @@ Based on your selections during the CLI interaction, your new project will come 
 
 (Screenshots will be added once the visual aspects are finalized)
 
----
+<br/>
 
 ## Keywords:
 
 create-modern-stack, react, nextjs, next.js, react.js, tailwind, tailwindcss, shadcn, shadcn-ui, zustand, redux, tanstack-router, react-router, dark-mode, light-mode, theme-toggle, boilerplate, starter-kit, cli, scaffolding, frontend, web-development, project-generator
 
----
+<br/>
 
 ## Author
 
 **Yash Shrivastava**  
 [GitHub](https://github.com/YashShrivastava10) • [Website](portfolio-yash-shrivastava.vercel.app) • [LinkedIn](https://www.linkedin.com/in/yash-shrivastava-7980911bb/)
-
----
 
 Happy Coding!
