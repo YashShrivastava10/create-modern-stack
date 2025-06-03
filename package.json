@@ -33,7 +33,7 @@
     "email": "shrivastavayash10@gmail.com",
     "url": "https://portfolio-yash-shrivastava.vercel.app"
   },
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@clack/prompts": "^0.11.0",
     "fs-extra": "^11.3.0",

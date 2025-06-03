@@ -45,9 +45,8 @@ The CLI will guide you through a series of questions to customize your project s
 <th>CLI in Action</th>
 </tr>
 <tr>
-<td>
-
-```js
+<td style="max-width: 400px; font-size: 12px; white-space: pre-wrap; word-wrap: break-word;">
+<pre>
 [
     {
         type: "text",
@@ -81,15 +80,14 @@ The CLI will guide you through a series of questions to customize your project s
     {
         type: "toggle",
         message: "Are you happy with your choices and ready to proceed?",
-        choices: ["yes", "no"]
+        choices: ["yes", "no"],
         default: true,
     },
 ]
-```
-
+</pre>
 </td>
-<td>
- <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/cli.png" alt="CLI Screenshot Placeholder"/>
+<td style="width: 400px; text-align: center;">
+  <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/cli.png" alt="CLI Screenshot Placeholder" style="width: 100%; max-width: 400px;"/>
 </td>
 </tr>
 </table>
@@ -162,24 +160,26 @@ Based on your selections during the CLI interaction, your new project will come 
 
 <table>
   <tr>
-    <td align="center" width="50%">
-      <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/blue-desktop.png" alt="Blue Theme Desktop Preview" width="90%">
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/blue-desktop.png" alt="Blue Theme Desktop Preview">
       <br><em>Blue Theme</em>
     </td>
-    <td align="center" width="50%">
-      <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/default-desktop.png" alt="Default Theme Desktop Preview" width="90%">
-      <!-- Assuming "desktop-desktop.png" is the default theme. Adjust alt text if needed -->
-      <br><em>Default Theme</em>
-    </td>
-  
   </tr>
   <tr>
-    <td align="center" width="50%">
-      <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/purple-desktop.png" alt="Purple Theme Desktop Preview" width="90%">
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/default-desktop.png" alt="Default Theme Desktop Preview">
+      <br><em>Default Theme</em>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/purple-desktop.png" alt="Purple Theme Desktop Preview">
       <br><em>Purple Theme</em>
     </td>
-      <td align="center" width="50%">
-      <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/red-desktop.png" alt="Red Theme Desktop Preview" width="90%">
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/YashShrivastava10/create-modern-stack/main/assets/red-desktop.png" alt="Red Theme Desktop Preview">
       <br><em>Red Theme</em>
     </td>
   </tr>
