@@ -15,6 +15,7 @@ const copyTemplates = async (
   return new Promise(async (resolve, reject) => {
     try {
       const commonTemplate = path.join(__dirname, "..", "templates", "common");
+      console.log(commonTemplate);
       const templateRoot = path.join(__dirname, "..", "templates", framework);
       const baseTemplatePath = path.join(templateRoot, "base");
       const statePath = path.join(

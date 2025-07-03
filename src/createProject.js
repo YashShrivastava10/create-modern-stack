@@ -105,7 +105,7 @@ const createProject = async (answers) => {
     s.stop(colors.green("Core utilities & UI dependencies installed."));
 
     // Step 7: Copy Templates
-    s.start(colors.cyan("Generating project-specific templates..."));
+    s.start(colors.cyan("Generating project-specific templates"));
     await copyTemplates(framework, stateManagement, projectPath, routing);
     s.stop(colors.green("Project-specific templates generated."));
 
@@ -114,7 +114,7 @@ const createProject = async (answers) => {
     const capitalizedPalette = capitalizeFirstLetter(colorPalette);
 
     s.start(
-      `Applying '${paletteDisplayColor(capitalizedPalette)}' color theme...`
+      `Applying '${paletteDisplayColor(capitalizedPalette)}' color theme`
     );
     await copyCssFile(framework, colorPalette, projectPath);
     s.stop(`${paletteDisplayColor(capitalizedPalette)} color theme applied.`);
@@ -154,10 +154,10 @@ const createProject = async (answers) => {
       const sCleanup = clack.spinner();
       sCleanup.start(`Removing directory ${projectPath}...`);
       try {
-        fs.rmSync(projectPath, { recursive: true, force: true });
-        sCleanup.stop(
-          colors.green(`✅ Successfully removed directory: ${projectPath}`)
-        );
+        // fs.rmSync(projectPath, { recursive: true, force: true });
+        // sCleanup.stop(
+        //   colors.green(`✅ Successfully removed directory: ${projectPath}`)
+        // );
       } catch (cleanupError) {
         sCleanup.stop(
           colors.red(`❌ Failed to remove directory: ${projectPath}`)
